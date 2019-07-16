@@ -1,0 +1,59 @@
+package com.fz.countdowntimer;
+
+/**
+ * 倒计时结束监听
+ *
+ * @author dingpeihua
+ * @version 1.0
+ * @date 2019/5/8 09:41
+ */
+public abstract class OnCountdownListener {
+    /**
+     * 倒计时结束
+     *
+     * @param cv 倒计时控件
+     * @author dingpeihua
+     * @date 2019/5/8 09:42
+     * @version 1.0
+     */
+    public void onFinish(CountdownView cv) {
+
+    }
+
+    /**
+     * @param cv         倒计时控件
+     * @param remainTime
+     * @author dingpeihua
+     * @date 2019/5/8 09:40
+     * @version 1.0
+     */
+    public void onTick(CountdownView cv, long remainTime) {
+
+    }
+
+//    /**
+//     * 倒计时停止
+//     *
+//     * @param cv                  倒计时控件
+//     * @param millisUntilFinished 剩余毫秒数
+//     * @author dingpeihua
+//     * @date 2019/5/8 09:45
+//     * @version 1.0
+//     */
+//    public void onStop(CountdownView cv, long millisUntilFinished) {
+//
+//    }
+//
+//    /**
+//     * 倒计时暂停
+//     *
+//     * @param cv                  倒计时控件
+//     * @param millisUntilFinished 剩余毫秒数
+//     * @author dingpeihua
+//     * @date 2019/5/8 09:45
+//     * @version 1.0
+//     */
+//    public void onPause(CountdownView cv, long millisUntilFinished) {
+//
+//    }
+}
