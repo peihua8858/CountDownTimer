@@ -183,7 +183,7 @@
 
 ```py
  repositories {
-        maven { url 'http://10.32.1.78:8081/repository/maven-public/' }
+        maven { url 'http://10.36.5.100:8081/repository/maven-public/' }
     }
 ```
 
@@ -191,7 +191,7 @@
 
 ```py
 dependencies {
-    implementation 'com.fz.countdowntimer:countdowntimer:1.0.3'
+    implementation 'com.fz.countdowntimer:countdowntimer:1.0.5'
 }
 ```
 

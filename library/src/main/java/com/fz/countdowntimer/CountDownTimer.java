@@ -15,13 +15,16 @@ import android.os.SystemClock;
  */
 abstract class CountDownTimer implements Handler.Callback {
     private static final int MSG = 1;
-    private final long mMillisInFuture;
-    private final long mCountdownInterval;
+    private long mMillisInFuture;
+    private long mCountdownInterval;
     private long mStopTimeInFuture;
     private long mPauseTimeInFuture;
     private boolean isStop = false;
     private boolean isPause = false;
     private Handler mHandler;
+
+    public CountDownTimer() {
+    }
 
     public CountDownTimer(long millisInFuture) {
         this(millisInFuture, 1000);
@@ -32,24 +35,50 @@ abstract class CountDownTimer implements Handler.Callback {
      * @param countDownInterval 倒计时间隔时间
      */
     public CountDownTimer(long millisInFuture, long countDownInterval) {
+        initTime(millisInFuture, countDownInterval);
+    }
+
+    void initTime(long millisInFuture) {
+        initTime(millisInFuture, 1000);
+    }
+
+    void initTime(long millisInFuture, long countDownInterval) {
         // 解决秒数有时会一开始就减去了2秒问题（如10秒总数的，刚开始就8999，然后没有不会显示9秒，直接到8秒）
         if (countDownInterval > 1000) {
             millisInFuture += 15;
         }
         mMillisInFuture = millisInFuture;
         mCountdownInterval = countDownInterval;
-        mHandler = new Handler(this);
+        initHandler();
     }
 
-    private synchronized CountDownTimer start(long millisInFuture) {
+    void initHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler(this);
+        }
+    }
+
+    public synchronized CountDownTimer start(long millisInFuture, long countDownInterval) {
+        initTime(millisInFuture, countDownInterval);
+        startTime(millisInFuture);
+        return this;
+    }
+
+    public synchronized CountDownTimer start(long millisInFuture) {
+        initTime(millisInFuture);
+        startTime(millisInFuture);
+        return this;
+    }
+
+    private void startTime(long millisInFuture) {
         isStop = false;
+        isPause = false;
         if (millisInFuture <= 0) {
             onFinish();
-            return this;
+            return;
         }
         mStopTimeInFuture = SystemClock.elapsedRealtime() + millisInFuture;
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
-        return this;
     }
 
     /**
@@ -65,6 +94,7 @@ abstract class CountDownTimer implements Handler.Callback {
     public synchronized final void stop() {
         isStop = true;
         mHandler.removeMessages(MSG);
+        onStop(remainingTime());
     }
 
     /**
@@ -76,8 +106,9 @@ abstract class CountDownTimer implements Handler.Callback {
             return;
         }
         isPause = true;
-        mPauseTimeInFuture = mStopTimeInFuture - SystemClock.elapsedRealtime();
+        mPauseTimeInFuture = remainingTime();
         mHandler.removeMessages(MSG);
+        onPause(mPauseTimeInFuture);
     }
 
     /**
@@ -87,7 +118,6 @@ abstract class CountDownTimer implements Handler.Callback {
         if (isStop || !isPause) {
             return;
         }
-
         isPause = false;
         start(mPauseTimeInFuture);
     }
@@ -104,14 +134,34 @@ abstract class CountDownTimer implements Handler.Callback {
      */
     public abstract void onFinish();
 
+    /**
+     * 倒计时暂停
+     */
+    public abstract void onPause(long millisUntilFinished);
+
+    /**
+     * 倒计时停止
+     *
+     * @param millisUntilFinished
+     */
+    public abstract void onStop(long millisUntilFinished);
+
+    /**
+     * 剩余时间数，单位毫秒
+     *
+     * @return
+     */
+    public final long remainingTime() {
+        return mStopTimeInFuture - SystemClock.elapsedRealtime();
+    }
 
     @Override
-    public boolean handleMessage(Message msg) {
+    public final boolean handleMessage(Message msg) {
         synchronized (CountDownTimer.this) {
             if (isStop || isPause) {
                 return true;
             }
-            final long millisLeft = mStopTimeInFuture - SystemClock.elapsedRealtime();
+            final long millisLeft = remainingTime();
             if (millisLeft <= 0) {
                 onFinish();
             } else {

@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.core.widget.TextViewCompat;
@@ -220,7 +219,7 @@ public class CountdownView extends LinearLayout {
     }
 
     @Override
-    public void setOrientation(int orientation) {
+    public final void setOrientation(int orientation) {
         if (orientation != HORIZONTAL) {
             return;
         }
@@ -236,13 +235,14 @@ public class CountdownView extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        stop();
+        onStop();
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         start(mHelper.remainTime);
+
     }
 
     /**
@@ -271,36 +271,63 @@ public class CountdownView extends LinearLayout {
         }
         if (null != mCountDownTimer) {
             mCountDownTimer.stop();
-            mCountDownTimer = null;
+//            mCountDownTimer = null;
         }
         long countDownInterval;
         if (mHelper.isShowMillisecond) {
             countDownInterval = 10;
-            updateShow(millisecond);
         } else {
             countDownInterval = 1000;
         }
-        mCountDownTimer = new CountDownTimer(millisecond, countDownInterval) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                updateShow(millisUntilFinished);
-                if (null != mOnCountdownListener) {
-                    mOnCountdownListener.onTick(CountdownView.this, millisUntilFinished);
+        updateShow(millisecond);
+        if (mCountDownTimer == null) {
+            mCountDownTimer = new CountDownTimer(millisecond, countDownInterval) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateShow(millisUntilFinished);
+                    if (null != mOnCountdownListener) {
+                        mOnCountdownListener.onTick(CountdownView.this, millisUntilFinished);
+                    }
                 }
-            }
 
-            @Override
-            public void onFinish() {
-                // countdown end
-                allShowZero();
-                // callback
-                if (null != mOnCountdownListener) {
-                    mOnCountdownListener.onFinish(CountdownView.this);
+                @Override
+                public void onFinish() {
+                    // countdown end
+                    allShowZero();
+                    // callback
+                    if (null != mOnCountdownListener) {
+                        mOnCountdownListener.onFinish(CountdownView.this);
+                    }
                 }
-            }
-        };
-        mCountDownTimer.start();
+
+                @Override
+                public void onPause(long millisUntilFinished) {
+                    if (null != mOnCountdownListener) {
+                        mOnCountdownListener.onPause(CountdownView.this, millisUntilFinished);
+                    }
+                }
+
+                @Override
+                public void onStop(long millisUntilFinished) {
+                    if (null != mOnCountdownListener) {
+                        mOnCountdownListener.onStop(CountdownView.this, millisUntilFinished);
+                    }
+                }
+            };
+            mCountDownTimer.start();
+        }else{
+            mCountDownTimer.start(millisecond, countDownInterval);
+        }
     }
+
+    private void onFinish() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.onFinish();
+        } else if (null != mOnCountdownListener) {
+            mOnCountdownListener.onFinish(CountdownView.this);
+        }
+    }
+
 
     /**
      * 停止倒计时
@@ -309,7 +336,7 @@ public class CountdownView extends LinearLayout {
      * @date 2019/5/8 20:21
      * @version 1.0
      */
-    public void stop() {
+    public void onStop() {
         if (null != mCountDownTimer) {
             mCountDownTimer.stop();
         }
@@ -450,8 +477,8 @@ public class CountdownView extends LinearLayout {
         } else {
             second = (int) ((ms % ONE_MINUTE) / ONE_SECOND);
         }
-        int millisecond = (int) (ms % ONE_SECOND);
         mHelper.remainTime = ms;
+        int millisecond = (int) (ms % ONE_SECOND);
         mHelper.setTimes(day, hour, minute, second, millisecond);
         updateText(day, hour, minute, second, millisecond);
     }
