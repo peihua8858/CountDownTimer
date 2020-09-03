@@ -39,6 +39,11 @@ public class DrawBgTextView extends AppCompatTextView {
      * 是不是毫秒
      */
     private boolean isMillisecond;
+    /**
+     * 背景大小,-1表示默认自适应
+     */
+    private int mBgSize = -1;
+
     public DrawBgTextView(Context context) {
         super(context);
     }
@@ -85,17 +90,34 @@ public class DrawBgTextView extends AppCompatTextView {
         }
     }
 
+    public void setBgSize(int bgSize) {
+        this.mBgSize = bgSize;
+        if (mBgSize <= 0) {
+            setValue(mValue);
+            float width = measureTextWidth();
+            setWidth((int) (width + getPaddingStart() + getPaddingEnd()));
+        } else {
+            setWidth(bgSize);
+            setHeight(bgSize);
+        }
+    }
+
     public void setValue(int value, boolean isLimitTwoDigits, int limitMaximum) {
         mValue = value;
         if (isMillisecond) {
             setText(Utils.formatMillisecond(mFormat, limitMaximum, mValue));
-        }else{
+        } else {
             setText(Utils.formatNum(isLimitTwoDigits, mFormat, limitMaximum, mValue));
         }
     }
 
     public void setValue(int value) {
         setValue(value, isLimitTwoDigits, limitMaximum);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override

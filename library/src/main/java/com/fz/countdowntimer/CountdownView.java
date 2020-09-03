@@ -174,9 +174,9 @@ public class CountdownView extends LinearLayout {
             }
             Rect rectMargin = mHelper.mTimeMarginRect;
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.leftMargin = rectMargin.left;
+            params.setMarginStart(rectMargin.left);
             params.topMargin = rectMargin.top;
-            params.rightMargin = rectMargin.right;
+            params.setMarginEnd(rectMargin.right);
             params.bottomMargin = rectMargin.bottom;
             if (backgroundRes != 0) {
                 view.setBackgroundResource(backgroundRes);
@@ -200,12 +200,8 @@ public class CountdownView extends LinearLayout {
             view.setLimitMaximum(limitMaximum);
             view.setLimitTwoDigits(isLimitTwoDigits);
             view.setMillisecond(isMillisecond);
-            if (mHelper.mTimeBgSize > 0) {
-                params.width = mHelper.mTimeBgSize;
-                params.height = mHelper.mTimeBgSize;
-                view.setWidth(mHelper.mTimeBgSize);
-                view.setHeight(mHelper.mTimeBgSize);
-            }
+            view.setLayoutParams(params);
+            view.setBgSize(mHelper.mTimeBgSize);
             addView(view, params);
             return view;
         }
@@ -267,11 +263,11 @@ public class CountdownView extends LinearLayout {
      */
     public void start(long millisecond) {
         if (millisecond <= 0) {
+            reset();
             return;
         }
         if (null != mCountDownTimer) {
             mCountDownTimer.stop();
-//            mCountDownTimer = null;
         }
         long countDownInterval;
         if (mHelper.isShowMillisecond) {
@@ -315,7 +311,7 @@ public class CountdownView extends LinearLayout {
                 }
             };
             mCountDownTimer.start();
-        }else{
+        } else {
             mCountDownTimer.start(millisecond, countDownInterval);
         }
     }
@@ -432,6 +428,20 @@ public class CountdownView extends LinearLayout {
      */
     public long getRemainTime() {
         return mHelper.remainTime;
+    }
+
+    /**
+     * 重置为0时间
+     *
+     * @author dingpeihua
+     * @date 2019/12/20 18:48
+     * @version 1.0
+     */
+    public void reset() {
+        if (mCountDownTimer != null) {
+            mCountDownTimer.stop();
+        }
+        updateShow(0);
     }
 
     /**

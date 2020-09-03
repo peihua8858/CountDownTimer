@@ -1,27 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+    <LinearLayout
+        android:id="@+id/rl_flash_sale"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF">
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.fz.countdowntimer.CountdownView
-            android:id="@+id/cv_countdown_timer"
+        <ImageView
+            android:id="@+id/tv_flash_sale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layoutDirection="ltr"
+            android:src="@mipmap/ic_launcher" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_countdown_views"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_countdown_timer" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <com.fz.countdowntimer.CountdownView
+            android:id="@+id/cv_countdown_timer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:layoutDirection="ltr"
+            app:isConvertDaysToHours="true"
+            app:isShowDay="false"
+            app:isShowHour="true"
+            app:isShowMillisecond="false"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:limitHourDigits="99"
+            app:suffixTextColor="#FF3459"
+            app:suffixTextSize="13sp"
+            app:timeBgRadius="0dp"
+            app:timeMarginEnd="3dp"
+            app:timeMarginStart="3dp"
+            app:timeTextColor="#FF3459"
+            app:timeTextSize="12sp" />
+    </LinearLayout>
+    <com.fz.countdowntimer.CountdownView
+        android:id="@+id/cv_countdown_timer"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/rl_flash_sale"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_countdown_views"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_countdown_timer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

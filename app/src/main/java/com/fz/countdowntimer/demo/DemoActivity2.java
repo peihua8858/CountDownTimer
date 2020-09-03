@@ -4,9 +4,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fz.countdowntimer.CountdownView;
 import com.fz.countdowntimer.DynamicConfig;
@@ -17,7 +17,6 @@ import java.util.Random;
 
 public class DemoActivity2 extends AppCompatActivity {
     long[] times = new long[]{50, 20, 15, 60};
-    SwipeRefreshLayout swipeRefreshLayout;
     CountdownView countdownView;
     Demo2Adapter demo2Adapter;
     RecyclerView recyclerView;
@@ -28,17 +27,14 @@ public class DemoActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo2);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         recyclerView = findViewById(R.id.rv_countdown_views);
         demo2Adapter = new Demo2Adapter();
         demo2Adapter.setNewData(getData());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(demo2Adapter);
         countdownView = findViewById(R.id.cv_countdown_timer);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            swipeRefreshLayout.setRefreshing(false);
-            demo2Adapter.setNewData(getData());
-        });
+        CountdownView cvCountdownTimer = findViewById(R.id.cv_countdown_timer1);
+        cvCountdownTimer.start(500000);
         countdownView.startDynamic(DynamicConfig.createBuilder()
                 .setRemainTime(50000000L)
                 .setTimeTextSize(36F)
