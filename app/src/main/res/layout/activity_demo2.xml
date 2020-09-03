@@ -37,6 +37,8 @@
             app:isShowMillisecond="false"
             app:isShowMinute="true"
             app:isShowSecond="true"
+            app:timeTextAppearance="@style/CountDownTimeTextAppearance"
+            app:suffixTextAppearance="@style/CountDownSuffixTextAppearance"
             app:limitHourDigits="99"
             app:suffixTextColor="#FF3459"
             app:suffixTextSize="13sp"
@@ -46,11 +48,28 @@
             app:timeTextColor="#FF3459"
             app:timeTextSize="12sp" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_activity_sale"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#33666666"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:padding="5dp"
+        android:fontFamily="@font/proximanova_semibold"
+        android:singleLine="true"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:text="testsdf"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/rl_flash_sale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <com.fz.countdowntimer.CountdownView
         android:id="@+id/cv_countdown_timer"
         android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/rl_flash_sale"
+        app:layout_constraintTop_toBottomOf="@id/tv_activity_sale"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

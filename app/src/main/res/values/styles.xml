@@ -31,4 +31,19 @@
         <item name="android:padding">10dp</item>
         <item name="android:textAllCaps">false</item>
     </style>
+    <!--分类商品列表、虚拟分类商品列表、搜索列表倒计时字体样式-->
+    <style name="CountDownTimeTextAppearance">
+        <item name="android:fontFamily">@font/proximanova_semibold</item>
+<!--        <item name="fontFamily">@font/proximanova_semibold</item>-->
+        <item name="android:textSize">18sp</item>
+        <!--        <item name="android:textStyle">bold</item>-->
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="CountDownSuffixTextAppearance">
+        <item name="android:fontFamily">@font/proximanova_regular</item>
+<!--        <item name="fontFamily">@font/proximanova_semibold</item>-->
+        <item name="android:textSize">20sp</item>
+        <!--        <item name="android:textStyle">bold</item>-->
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
 </resources>

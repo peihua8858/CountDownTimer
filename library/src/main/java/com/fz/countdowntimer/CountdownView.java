@@ -103,15 +103,15 @@ public class CountdownView extends LinearLayout {
             view.setPaddingRelative(rectPadding.left, rectPadding.top, rectPadding.right, rectPadding.bottom);
             if (suffixTextAppearance != 0) {
                 TextViewCompat.setTextAppearance(view, suffixTextAppearance);
-            } else if (mHelper.mSuffixTextSize != 0 || mHelper.mSuffixTextColor != 0) {
+            } else if (mHelper.mSuffixTextAppearance != 0) {
+                TextViewCompat.setTextAppearance(view, mHelper.mSuffixTextAppearance);
+            } else {
                 if (mHelper.mSuffixTextSize != 0) {
                     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mHelper.mSuffixTextSize);
+                } else {
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mHelper.mDefaultSuffixTextSize);
                 }
-                if (mHelper.mSuffixTextColor != 0) {
-                    view.setTextColor(mHelper.mSuffixTextColor);
-                }
-            } else {
-                TextViewCompat.setTextAppearance(view, mHelper.mSuffixTextAppearance);
+                view.setTextColor(mHelper.mSuffixTextColor);
             }
             view.setText(TextUtils.isEmpty(suffix) ? ":" : suffix);
             if (backgroundRes != 0) {
@@ -162,15 +162,15 @@ public class CountdownView extends LinearLayout {
             view.setPaddingRelative(rectPadding.left, rectPadding.top, rectPadding.right, rectPadding.bottom);
             if (textAppearance != 0) {
                 TextViewCompat.setTextAppearance(view, textAppearance);
-            } else if (mHelper.mTimeTextSize != 0 || mHelper.mTimeTextColor != 0) {
+            } else if (mHelper.mTimeTextAppearance != 0) {
+                TextViewCompat.setTextAppearance(view, mHelper.mTimeTextAppearance);
+            } else {
                 if (mHelper.mTimeTextSize != 0) {
                     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mHelper.mTimeTextSize);
+                } else {
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mHelper.mDefaultTimeTextSize);
                 }
-                if (mHelper.mTimeTextColor != 0) {
-                    view.setTextColor(mHelper.mTimeTextColor);
-                }
-            } else {
-                TextViewCompat.setTextAppearance(view, mHelper.mTimeTextAppearance);
+                view.setTextColor(mHelper.mTimeTextColor);
             }
             Rect rectMargin = mHelper.mTimeMarginRect;
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

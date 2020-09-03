@@ -2,6 +2,7 @@ package com.fz.countdowntimer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -208,12 +209,16 @@ class AttributeHelper {
      * 后缀背景大小
      */
     int mSuffixBgSize;
+    float mDefaultTimeTextSize;
+    float mDefaultSuffixTextSize;
 
     AttributeHelper(Context context, AttributeSet attrs) {
         mContext = context;
+        mDefaultTimeTextSize = Utils.sp2px(mContext, 12);
+        mDefaultSuffixTextSize = mDefaultTimeTextSize;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CountdownView);
-        mTimeTextSize = ta.getDimension(R.styleable.CountdownView_timeTextSize, Utils.sp2px(mContext, 12));
-        mTimeTextColor = ta.getColor(R.styleable.CountdownView_timeTextColor, 0);
+        mTimeTextSize = ta.getDimension(R.styleable.CountdownView_timeTextSize, 0);
+        mTimeTextColor = ta.getColor(R.styleable.CountdownView_timeTextColor, 0xFF000000);
         isShowDay = ta.getBoolean(R.styleable.CountdownView_isShowDay, false);
         isShowHour = ta.getBoolean(R.styleable.CountdownView_isShowHour, false);
         isShowMinute = ta.getBoolean(R.styleable.CountdownView_isShowMinute, true);
@@ -233,7 +238,7 @@ class AttributeHelper {
 
         mLimitMillisecondDigits = ta.getInt(R.styleable.CountdownView_limitMillisecondDigits, 2);
 
-        mSuffixTextSize = ta.getDimension(R.styleable.CountdownView_suffixTextSize, Utils.sp2px(mContext, 12));
+        mSuffixTextSize = ta.getDimension(R.styleable.CountdownView_suffixTextSize, 0);
         mSuffixTextColor = ta.getColor(R.styleable.CountdownView_suffixTextColor, 0xFF000000);
         mDayFormat = ta.getString(R.styleable.CountdownView_dayFormat);
         mHourFormat = ta.getString(R.styleable.CountdownView_hourFormat);
