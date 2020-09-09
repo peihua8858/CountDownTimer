@@ -37,8 +37,6 @@
             app:isShowMillisecond="false"
             app:isShowMinute="true"
             app:isShowSecond="true"
-            app:timeTextAppearance="@style/CountDownTimeTextAppearance"
-            app:suffixTextAppearance="@style/CountDownSuffixTextAppearance"
             app:limitHourDigits="99"
             app:suffixTextColor="#FF3459"
             app:suffixTextSize="13sp"
@@ -47,6 +45,8 @@
             app:timeMarginStart="3dp"
             app:timeTextColor="#FF3459"
             app:timeTextSize="12sp" />
+<!--        app:timeTextAppearance="@style/CountDownTimeTextAppearance"-->
+<!--        app:suffixTextAppearance="@style/CountDownSuffixTextAppearance"-->
     </LinearLayout>
     <TextView
         android:id="@+id/tv_activity_sale"

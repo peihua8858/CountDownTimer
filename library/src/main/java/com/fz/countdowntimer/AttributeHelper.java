@@ -2,9 +2,7 @@ package com.fz.countdowntimer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -266,14 +264,14 @@ class AttributeHelper {
 //        if (!isShowSecond) {
 //            isShowMillisecond = false;
 //        }
-        mTimeTextAppearance = ta.getResourceId(R.styleable.CountdownView_timeTextAppearance, android.R.attr.textAppearance);
+        mTimeTextAppearance = ta.getResourceId(R.styleable.CountdownView_timeTextAppearance, 0);
         mDayTextAppearance = ta.getResourceId(R.styleable.CountdownView_dayTextAppearance, 0);
         mHourTextAppearance = ta.getResourceId(R.styleable.CountdownView_hourTextAppearance, 0);
         mMinuteTextAppearance = ta.getResourceId(R.styleable.CountdownView_minuteTextAppearance, 0);
         mSecondTextAppearance = ta.getResourceId(R.styleable.CountdownView_secondTextAppearance, 0);
         mMillisecondTextAppearance = ta.getResourceId(R.styleable.CountdownView_millisecondTextAppearance, 0);
 
-        mSuffixTextAppearance = ta.getResourceId(R.styleable.CountdownView_suffixTextAppearance, android.R.attr.textAppearance);
+        mSuffixTextAppearance = ta.getResourceId(R.styleable.CountdownView_suffixTextAppearance, 0);
         mSuffixDayTextAppearance = ta.getResourceId(R.styleable.CountdownView_suffixDayTextAppearance, 0);
         mSuffixHourTextAppearance = ta.getResourceId(R.styleable.CountdownView_suffixHourTextAppearance, 0);
         mSuffixMinuteTextAppearance = ta.getResourceId(R.styleable.CountdownView_suffixMinuteTextAppearance, 0);
