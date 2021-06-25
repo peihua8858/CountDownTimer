@@ -94,8 +94,6 @@ public class DrawBgTextView extends AppCompatTextView {
         this.mBgSize = bgSize;
         if (mBgSize <= 0) {
             setValue(mValue);
-            float width = measureTextWidth();
-            setWidth((int) (width + getPaddingStart() + getPaddingEnd()));
         } else {
             setWidth(bgSize);
             setHeight(bgSize);
@@ -115,6 +113,15 @@ public class DrawBgTextView extends AppCompatTextView {
         setValue(value, isLimitTwoDigits, limitMaximum);
     }
 
+    private void measureWidth() {
+        int oldWidth = getWidth();
+        float width = measureTextWidth();
+        int newWidth = Math.round((width + getPaddingStart() + getPaddingEnd()));
+        setWidth(Math.max(oldWidth, newWidth));
+        requestLayout();
+        invalidate();
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -123,6 +130,9 @@ public class DrawBgTextView extends AppCompatTextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         super.setText(text, type);
+        if (mBgSize == 0) {
+            measureWidth();
+        }
     }
 
     @Override
