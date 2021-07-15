@@ -3,9 +3,10 @@ package com.fz.countdowntimer.demo;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.gb.bind.adapter.GbMultiItemEntity;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-public class Demo2Bean implements GbMultiItemEntity<String> {
+
+public class Demo2Bean implements MultiItemEntity {
     private long elapsedRealTime;
     private String title;
     private long countdownTime;
@@ -36,7 +37,6 @@ public class Demo2Bean implements GbMultiItemEntity<String> {
         return (elapsedRealTime + countdownTime * 1000) - SystemClock.elapsedRealtime();
     }
 
-    @Override
     public String getItemValue() {
         Log.d("Demo2Adapter", "Demo2Adapter>>>CountDownEndTime：" + getCountDownEndTime());
         if (getCountDownEndTime() <= 0) {

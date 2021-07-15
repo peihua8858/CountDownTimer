@@ -130,7 +130,7 @@ public class DrawBgTextView extends AppCompatTextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         super.setText(text, type);
-        if (mBgSize == 0) {
+        if (mBgSize == 0 && text != null && text.length() > 0) {
             measureWidth();
         }
     }

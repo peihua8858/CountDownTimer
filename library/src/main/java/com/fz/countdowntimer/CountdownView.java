@@ -134,9 +134,9 @@ public class CountdownView extends LinearLayout {
             }
             Rect rectMargin = mHelper.mSuffixMarginRect;
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.leftMargin = rectMargin.left;
+            params.setMarginStart(rectMargin.left);
             params.topMargin = rectMargin.top;
-            params.rightMargin = rectMargin.right;
+            params.setMarginEnd(rectMargin.right);
             params.bottomMargin = rectMargin.bottom;
             if (mHelper.mSuffixBgSize > 0) {
                 params.width = mHelper.mSuffixBgSize;
