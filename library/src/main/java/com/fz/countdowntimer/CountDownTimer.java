@@ -13,7 +13,7 @@ import android.os.SystemClock;
  * @version 1.0
  * @date 2019/5/8 09:42
  */
-abstract class CountDownTimer implements Handler.Callback {
+public abstract class CountDownTimer implements Handler.Callback {
     private static final int MSG = 1;
     private long mMillisInFuture;
     private long mCountdownInterval;
