@@ -127,7 +127,9 @@ public abstract class CountDownTimer implements Handler.Callback {
      *
      * @param millisUntilFinished 剩余毫秒数
      */
-    public abstract void onTick(long millisUntilFinished);
+    public void onTick(long millisUntilFinished){
+
+    }
 
     /**
      * 倒计时结束回调
@@ -137,14 +139,18 @@ public abstract class CountDownTimer implements Handler.Callback {
     /**
      * 倒计时暂停
      */
-    public abstract void onPause(long millisUntilFinished);
+    public void onPause(long millisUntilFinished){
+
+    }
 
     /**
      * 倒计时停止
      *
      * @param millisUntilFinished
      */
-    public abstract void onStop(long millisUntilFinished);
+    public void onStop(long millisUntilFinished){
+
+    }
 
     /**
      * 剩余时间数，单位毫秒
