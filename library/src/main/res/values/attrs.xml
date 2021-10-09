@@ -21,6 +21,8 @@
         <attr name="isShowMinute" format="boolean" />
         <attr name="isShowSecond" format="boolean" />
         <attr name="isShowMillisecond" format="boolean" />
+        <!--当天数为0时，是否隐藏-->
+        <attr name="isHideZeroDay" format="boolean" />
         <!--格式化显示位数两位00-->
         <attr name="isDayTwoDigits" format="boolean" />
         <attr name="isHourTwoDigits" format="boolean" />

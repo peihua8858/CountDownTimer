@@ -34,7 +34,10 @@ class AttributeHelper {
      * {@link #isShowMillisecond} 是否显示毫秒
      */
     boolean isShowDay, isShowHour, isShowMinute, isShowSecond, isShowMillisecond;
-
+    /**
+     * 当天数为0时，是否隐藏
+     */
+    boolean isHideZeroDay;
     /**
      * 当前上下文
      */
@@ -217,6 +220,7 @@ class AttributeHelper {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CountdownView);
         mTimeTextSize = ta.getDimension(R.styleable.CountdownView_timeTextSize, 0);
         mTimeTextColor = ta.getColor(R.styleable.CountdownView_timeTextColor, 0xFF000000);
+        isHideZeroDay= ta.getBoolean(R.styleable.CountdownView_isHideZeroDay, false);
         isShowDay = ta.getBoolean(R.styleable.CountdownView_isShowDay, false);
         isShowHour = ta.getBoolean(R.styleable.CountdownView_isShowHour, false);
         isShowMinute = ta.getBoolean(R.styleable.CountdownView_isShowMinute, true);
@@ -365,6 +369,7 @@ class AttributeHelper {
         mMinute = dynamicConfig.mMinute == null ? mMinute : dynamicConfig.mMinute;
         mSecond = dynamicConfig.mSecond == null ? mSecond : dynamicConfig.mSecond;
         mMillisecond = dynamicConfig.mMillisecond == null ? mMillisecond : dynamicConfig.mMillisecond;
+        isHideZeroDay=  dynamicConfig.isHideZeroDay == null ? isHideZeroDay : dynamicConfig.isHideZeroDay;
         isShowDay = dynamicConfig.isShowDay == null ? isShowDay : dynamicConfig.isShowDay;
         isShowHour = dynamicConfig.isShowHour == null ? isShowHour : dynamicConfig.isShowHour;
         isShowMinute = dynamicConfig.isShowMinute == null ? isShowMinute : dynamicConfig.isShowMinute;

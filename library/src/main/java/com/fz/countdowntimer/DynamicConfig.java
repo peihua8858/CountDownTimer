@@ -25,6 +25,7 @@ public class DynamicConfig {
     Integer mMinute;
     Integer mSecond;
     Integer mMillisecond;
+    Boolean isHideZeroDay;
     Boolean isShowDay;
     Boolean isShowHour;
     Boolean isShowMinute;
@@ -131,6 +132,7 @@ public class DynamicConfig {
         mMinute = builder.mMinute;
         mSecond = builder.mSecond;
         mMillisecond = builder.mMillisecond;
+        isHideZeroDay = builder.isHideZeroDay;
         isShowDay = builder.isShowDay;
         isShowHour = builder.isShowHour;
         isShowMinute = builder.isShowMinute;
@@ -215,6 +217,7 @@ public class DynamicConfig {
         private Integer mMinute;
         private Integer mSecond;
         private Integer mMillisecond;
+        private Boolean isHideZeroDay;
         private Boolean isShowDay;
         private Boolean isShowHour;
         private Boolean isShowMinute;
@@ -315,6 +318,11 @@ public class DynamicConfig {
 
         public Builder setMillisecond(int val) {
             mMillisecond = val;
+            return this;
+        }
+
+        public Builder setHideZeroDay(boolean val) {
+            isHideZeroDay = val;
             return this;
         }
 

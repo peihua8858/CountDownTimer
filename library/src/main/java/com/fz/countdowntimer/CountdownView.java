@@ -51,6 +51,7 @@ public class CountdownView extends LinearLayout {
     }
 
     DrawBgTextView mDayTextView;
+    DrawBgTextView mDaySuffixTextView;
     DrawBgTextView mHourTextView;
     DrawBgTextView mMinuteTextView;
     DrawBgTextView mSecondTextView;
@@ -69,7 +70,7 @@ public class CountdownView extends LinearLayout {
         removeAllViews();
         mDayTextView = createTimeView(context, mHelper.isShowDay, mHelper.mDayBackgroundRes,
                 mHelper.mDayTextAppearance, mHelper.mDayFormat, mHelper.isDayTwoDigits, -1);
-        createSuffixView(context, mHelper.hasSetSuffixDay, mHelper.mSuffixDayBackgroundRes,
+        mDaySuffixTextView = createSuffixView(context, mHelper.hasSetSuffixDay, mHelper.mSuffixDayBackgroundRes,
                 mHelper.mSuffixDayTextAppearance, mHelper.mSuffixDay);
 
         mHourTextView = createTimeView(context, mHelper.isShowHour, mHelper.mHourBackgroundRes,
@@ -94,9 +95,9 @@ public class CountdownView extends LinearLayout {
                 mHelper.mSuffixMillisecondTextAppearance, mHelper.mSuffixMillisecond);
     }
 
-    private void createSuffixView(Context context, boolean hasSetSuffixDay, @DrawableRes int backgroundRes,
-                                  int suffixTextAppearance, String suffix) {
-        if (hasSetSuffixDay) {
+    private DrawBgTextView createSuffixView(Context context, boolean hasSetSuffix, @DrawableRes int backgroundRes,
+                                            int suffixTextAppearance, String suffix) {
+        if (hasSetSuffix) {
             DrawBgTextView view = new DrawBgTextView(context);
             view.setGravity(Gravity.CENTER);
             Rect rectPadding = mHelper.mSuffixPaddingRect;
@@ -145,7 +146,9 @@ public class CountdownView extends LinearLayout {
                 view.setHeight(mHelper.mSuffixBgSize);
             }
             addView(view, params);
+            return view;
         }
+        return null;
     }
 
     private DrawBgTextView createTimeView(Context context, boolean isShow, @DrawableRes int backgroundRes,
@@ -495,7 +498,14 @@ public class CountdownView extends LinearLayout {
 
     private void updateText(int day, int hour, int minute, int second, int millisecond) {
         if (mDayTextView != null) {
-            mDayTextView.setValue(day);
+            if (day <= 0 && mHelper.isHideZeroDay) {
+                mDayTextView.setVisibility(GONE);
+                if (mDaySuffixTextView != null) mDaySuffixTextView.setVisibility(GONE);
+            } else {
+                mDayTextView.setVisibility(VISIBLE);
+                if (mDaySuffixTextView != null) mDaySuffixTextView.setVisibility(VISIBLE);
+                mDayTextView.setValue(day);
+            }
         }
         if (mHourTextView != null) {
             mHourTextView.setValue(hour);
