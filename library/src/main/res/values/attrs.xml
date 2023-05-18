@@ -122,5 +122,8 @@
         <attr name="suffixMarginTop" format="reference|dimension" />
         <attr name="suffixMarginEnd" format="reference|dimension" />
         <attr name="suffixMarginBottom" format="reference|dimension" />
+        <!--字体样式-->
+        <attr name="timeFontFamily" format="string" />
+        <attr name="suffixFontFamily" format="string" />
     </declare-styleable>
 </resources>

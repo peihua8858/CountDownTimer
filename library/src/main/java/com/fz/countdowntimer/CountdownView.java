@@ -114,6 +114,9 @@ public class CountdownView extends LinearLayout {
                 }
                 view.setTextColor(mHelper.mSuffixTextColor);
             }
+            if (mHelper.mSuffixTypeface != null) {
+                view.setTypeface(mHelper.mSuffixTypeface);
+            }
             view.setText(TextUtils.isEmpty(suffix) ? ":" : suffix);
             if (backgroundRes != 0) {
                 view.setBackgroundResource(backgroundRes);
@@ -174,6 +177,9 @@ public class CountdownView extends LinearLayout {
                     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mHelper.mDefaultTimeTextSize);
                 }
                 view.setTextColor(mHelper.mTimeTextColor);
+            }
+            if (mHelper.mTimeTypeface != null) {
+                view.setTypeface(mHelper.mTimeTypeface);
             }
             Rect rectMargin = mHelper.mTimeMarginRect;
             LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fz.countdowntimer.CountdownView;
+import com.fz.countdowntimer.DynamicConfig;
 import com.fz.countdowntimer.OnCountdownListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "countdownView>>>倒计时结束了。。。。。。");
             }
         });
-        countdownView.start(5000L);
         countdownView1 = findViewById(R.id.cv_countdown_timer1);
         countdownView1.setOnCountdownListener(new OnCountdownListener() {
             @Override
@@ -42,7 +42,13 @@ public class MainActivity extends AppCompatActivity {
         countdownView3 = findViewById(R.id.cv_countdown_timer3);
         countdownView3.start(500000000L);
         countdownView4 = findViewById(R.id.cv_countdown_timer4);
-        countdownView4.start(500000000L);
+        DynamicConfig.Builder builder = new DynamicConfig.Builder();
+        builder.setTimeFontType(R.font.proximanova_semibold);
+        builder.setRemainTime(500000000L);
+        countdownView4.startDynamic(builder.build());
+
+
+//        countdownView.startDynamic(builder.build());
     }
 
     public void onClick(View view) {

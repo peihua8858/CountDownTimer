@@ -4,11 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.AttributeSet;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
+
+import com.fz.common.utils.HtmlUtil;
 
 /**
  * 可绘制背景文本控件
@@ -129,8 +133,12 @@ public class DrawBgTextView extends AppCompatTextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
+        boolean hasText = text != null && text.length() > 0;
+        if (hasText) {
+            text = HtmlUtil.fromHtml(text.toString());
+        }
         super.setText(text, type);
-        if (mBgSize == 0 && text != null && text.length() > 0) {
+        if (mBgSize == 0 && hasText) {
             measureWidth();
         }
     }

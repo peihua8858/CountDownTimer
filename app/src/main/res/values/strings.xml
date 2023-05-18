@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CountDownTimer</string>
+    <string name="text_day_format"><Data><![CDATA[%s<font size="8px" color="#4def4e">D</font>]]></Data></string>
+    <string name="text_hour_format"><Data><![CDATA[%s<font size="8px">h</font>]]></Data></string>
+    <string name="text_minute_format"><Data><![CDATA[%s<font size="8px">m</font>]]></Data></string>
+    <string name="text_second_format"><Data><![CDATA[%s<font size="8px">s</font>]]></Data></string>
+    <string name="text_millisecond_format"><Data><![CDATA[%s<font size="8px">ms</font>]]></Data></string>
 </resources>

@@ -3,11 +3,14 @@ package com.fz.countdowntimer;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.FontRes;
+import androidx.core.content.res.ResourcesCompat;
 
 /**
  * 倒计时组件属性辅助类
@@ -72,6 +75,8 @@ class AttributeHelper {
      */
     @ColorInt
     int mTimeTextColor;
+    Typeface mTimeTypeface;
+    Typeface mSuffixTypeface;
     /**
      * 时间字体大小，单位px
      */
@@ -220,7 +225,7 @@ class AttributeHelper {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CountdownView);
         mTimeTextSize = ta.getDimension(R.styleable.CountdownView_timeTextSize, 0);
         mTimeTextColor = ta.getColor(R.styleable.CountdownView_timeTextColor, 0xFF000000);
-        isHideZeroDay= ta.getBoolean(R.styleable.CountdownView_isHideZeroDay, false);
+        isHideZeroDay = ta.getBoolean(R.styleable.CountdownView_isHideZeroDay, false);
         isShowDay = ta.getBoolean(R.styleable.CountdownView_isShowDay, false);
         isShowHour = ta.getBoolean(R.styleable.CountdownView_isShowHour, false);
         isShowMinute = ta.getBoolean(R.styleable.CountdownView_isShowMinute, true);
@@ -354,8 +359,22 @@ class AttributeHelper {
         mSuffixBgBorderColor = ta.getColor(R.styleable.CountdownView_suffixBgBorderColor, 0);
         mSuffixBgBorderSize = ta.getDimensionPixelSize(R.styleable.CountdownView_suffixBgBorderSize, 0);
         mSuffixBgBorderRadius = ta.getDimensionPixelSize(R.styleable.CountdownView_suffixBgBorderRadius, 0);
-
-
+        int timeFontFamily = ta.getResourceId(R.styleable.CountdownView_timeFontFamily, 0);
+        int suffixFontFamily = ta.getResourceId(R.styleable.CountdownView_suffixFontFamily, 0);
+        if (timeFontFamily != 0) {
+            try {
+                mTimeTypeface = ResourcesCompat.getFont(mContext, timeFontFamily);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (suffixFontFamily != 0) {
+            try {
+                mSuffixTypeface = ResourcesCompat.getFont(mContext, suffixFontFamily);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         ta.recycle();
         initSuffixBase();
     }
@@ -369,7 +388,7 @@ class AttributeHelper {
         mMinute = dynamicConfig.mMinute == null ? mMinute : dynamicConfig.mMinute;
         mSecond = dynamicConfig.mSecond == null ? mSecond : dynamicConfig.mSecond;
         mMillisecond = dynamicConfig.mMillisecond == null ? mMillisecond : dynamicConfig.mMillisecond;
-        isHideZeroDay=  dynamicConfig.isHideZeroDay == null ? isHideZeroDay : dynamicConfig.isHideZeroDay;
+        isHideZeroDay = dynamicConfig.isHideZeroDay == null ? isHideZeroDay : dynamicConfig.isHideZeroDay;
         isShowDay = dynamicConfig.isShowDay == null ? isShowDay : dynamicConfig.isShowDay;
         isShowHour = dynamicConfig.isShowHour == null ? isShowHour : dynamicConfig.isShowHour;
         isShowMinute = dynamicConfig.isShowMinute == null ? isShowMinute : dynamicConfig.isShowMinute;
@@ -450,6 +469,21 @@ class AttributeHelper {
         mLimitSecondDigits = dynamicConfig.mLimitSecondDigits == null ? mLimitSecondDigits : dynamicConfig.mLimitSecondDigits;
         mTimeBgSize = dynamicConfig.mTimeBgSize == null ? mTimeBgSize : dynamicConfig.mTimeBgSize;
         mSuffixBgSize = dynamicConfig.mSuffixBgSize == null ? mSuffixBgSize : dynamicConfig.mSuffixBgSize;
+
+        mTimeTypeface = dynamicConfig.mTimeTypeface == null ? mTimeTypeface : dynamicConfig.mTimeTypeface;
+        mSuffixTypeface = dynamicConfig.mSuffixTypeface == null ? mSuffixTypeface : dynamicConfig.mSuffixTypeface;
+        Integer mTimeFontType = dynamicConfig.mTimeFontType;
+        Integer mSuffixFontType = dynamicConfig.mSuffixFontType;
+        if (mTimeTypeface == null) {
+            if (mTimeFontType != null && mTimeFontType != 0) {
+                mTimeTypeface = getTypefaceRes(mTimeFontType);
+            }
+        }
+        if (mSuffixTypeface == null) {
+            if (mSuffixFontType != null && mSuffixFontType != 0) {
+                mSuffixTypeface = getTypefaceRes(mSuffixFontType);
+            }
+        }
         initSuffixBase();
     }
 
@@ -460,6 +494,15 @@ class AttributeHelper {
         hasSetSuffixMinute = !TextUtils.isEmpty(mSuffixMinute) || !hasMinuteSuffix && isShowSecond && isShowMinute;
         hasSetSuffixSecond = !TextUtils.isEmpty(mSuffixSecond) || !hasSecondSuffix && isShowMillisecond && isShowSecond;
         hasSetSuffixMillisecond = !TextUtils.isEmpty(mSuffixMillisecond);
+    }
+
+    private Typeface getTypefaceRes(@FontRes int fontType) {
+        try {
+            return ResourcesCompat.getFont(mContext, fontType);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     void checkParams() {

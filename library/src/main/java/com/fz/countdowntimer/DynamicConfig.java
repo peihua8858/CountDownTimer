@@ -11,6 +11,9 @@
 package com.fz.countdowntimer;
 
 import android.graphics.Rect;
+import android.graphics.Typeface;
+
+import androidx.annotation.FontRes;
 
 /**
  * 动态参数配置
@@ -121,6 +124,12 @@ public class DynamicConfig {
      * 后缀背景大小
      */
     Integer mSuffixBgSize;
+    @FontRes
+    Integer mTimeFontType;
+    @FontRes
+    Integer mSuffixFontType;
+    Typeface mTimeTypeface;
+    Typeface mSuffixTypeface;
 
     public static Builder createBuilder() {
         return new Builder();
@@ -209,6 +218,10 @@ public class DynamicConfig {
         mLimitSecondDigits = builder.limitSecondDigits;
         mTimeBgSize = builder.timeBgSize;
         mSuffixBgSize = builder.suffixBgSize;
+        mTimeFontType = builder.timeFontType;
+        mTimeTypeface = builder.timeTypeface;
+        mSuffixFontType = builder.suffixFontType;
+        mSuffixTypeface = builder.suffixTypeface;
     }
 
     public static final class Builder {
@@ -292,6 +305,32 @@ public class DynamicConfig {
         private Integer limitSecondDigits;
         private Integer timeBgSize;
         private Integer suffixBgSize;
+        private Typeface timeTypeface;
+        private Typeface suffixTypeface;
+        @FontRes
+        private Integer timeFontType;
+        @FontRes
+        private Integer suffixFontType;
+
+        public Builder setTimeFontType(int val) {
+            timeFontType = val;
+            return this;
+        }
+
+        public Builder setSuffixFontType(int val) {
+            suffixFontType = val;
+            return this;
+        }
+
+        public Builder setTimeTypeface(Typeface val) {
+            timeTypeface = val;
+            return this;
+        }
+
+        public Builder setSuffixTypeface(Typeface val) {
+            suffixTypeface = val;
+            return this;
+        }
 
         public Builder() {
         }
